@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#100b1c">
+  <meta name="description" content="Tarot y orientación simbólica con Alex Roitmann. Explora una tirada interactiva y reserva tu lectura personal.">
+  <title>Alex Roitmann | Tarot & Orientación</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --night:#100b1c; --night2:#171025; --panel:#211832; --gold:#d8b878;
+      --gold2:#f0dba9; --lilac:#a98bd5; --muted:#b9aec8; --white:#f8f4fb;
+      --line:rgba(216,184,120,.23); --shadow:0 18px 55px rgba(0,0,0,.28);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--night);color:var(--white);font-family:"DM Sans",sans-serif;line-height:1.65}
+    a{color:inherit;text-decoration:none}
+    button,input,textarea,select{font:inherit}
+    .container{width:min(1120px,calc(100% - 40px));margin:auto}
+    .eyebrow{color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.72rem;font-weight:700}
+    h1,h2,h3,.brand,.tarot-name{font-family:"Cormorant Garamond",serif}
+    h1{font-size:clamp(3.4rem,8vw,6.6rem);line-height:.93;font-weight:500;margin:18px 0}
+    h2{font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.05;font-weight:500;margin:0 0 18px}
+    h3{font-size:1.7rem;font-weight:600;margin:0 0 8px}
+    p{color:var(--muted)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--gold);padding:13px 21px;border-radius:4px;color:var(--night);background:var(--gold);font-weight:700;transition:.2s;cursor:pointer}
+    .btn:hover{background:var(--gold2);transform:translateY(-2px)}
+    .btn.ghost{background:transparent;color:var(--gold)}
+    .btn.ghost:hover{background:rgba(216,184,120,.1)}
+    header{position:absolute;z-index:5;top:0;left:0;width:100%;border-bottom:1px solid rgba(255,255,255,.08)}
+    nav{height:78px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-size:1.65rem;color:var(--gold);letter-spacing:.03em}
+    .navlinks{display:flex;gap:26px;color:#e5dced;font-size:.9rem}
+    .navlinks a:hover{color:var(--gold)}
+    .menu-btn{display:none;background:none;color:var(--gold);border:1px solid var(--line);padding:7px 11px;border-radius:4px}
+    .hero{min-height:740px;padding:160px 0 100px;display:flex;align-items:center;position:relative;overflow:hidden;background:radial-gradient(ellipse at 78% 42%,rgba(100,63,140,.28),transparent 38%),linear-gradient(115deg,#100b1c 15%,#1a1028 65%,#100b1c)}
+    .hero:before,.hero:after{content:"✦";position:absolute;color:rgba(216,184,120,.28);font-size:2rem}
+    .hero:before{right:15%;top:25%}.hero:after{right:35%;bottom:20%;font-size:1.1rem}
+    .hero-grid{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:50px}
+    .hero-copy{max-width:700px}
+    .hero-copy p{font-size:1.1rem;max-width:590px;margin:25px 0 30px}
+    .hero-art{display:grid;place-items:center;min-height:390px;position:relative}
+    .moon{width:min(330px,70vw);aspect-ratio:1;border-radius:50%;border:1px solid rgba(216,184,120,.55);box-shadow:0 0 0 20px rgba(216,184,120,.035),0 0 0 42px rgba(216,184,120,.025),0 0 80px rgba(169,139,213,.18);display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,rgba(169,139,213,.22),transparent 60%)}
+    .moon span{font-size:9rem;color:var(--gold);font-family:"Cormorant Garamond",serif;text-shadow:0 0 35px rgba(216,184,120,.25)}
+    section{padding:100px 0}
+    .section-head{text-align:center;max-width:700px;margin:0 auto 48px}
+    .about-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:70px;align-items:center}
+    .sigil{min-height:330px;border:1px solid var(--line);border-radius:48% 48% 5px 5px;background:radial-gradient(circle,rgba(169,139,213,.18),transparent 65%),var(--night2);display:grid;place-items:center;color:var(--gold);font-size:8rem}
+    .about-copy p{max-width:650px}
+    .services{background:linear-gradient(180deg,var(--night2),var(--night))}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .service-card{padding:28px;border:1px solid var(--line);background:rgba(33,24,50,.72);border-radius:8px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .service-card .symbol{font-size:2rem;color:var(--gold);margin-bottom:12px}
+    .service-card p{flex:1}
+    .price{font-family:"Cormorant Garamond",serif;font-size:2rem;color:var(--gold);margin:10px 0}
+    .meta{font-size:.82rem;color:#9f91b1}
+    .reading{background:radial-gradient(ellipse at center,rgba(86,53,119,.24),transparent 65%)}
+    .reading-panel{border:1px solid var(--line);background:rgba(23,16,37,.85);border-radius:12px;padding:35px;box-shadow:var(--shadow);text-align:center}
+    .reading-panel>p{max-width:650px;margin:0 auto 24px}
+    .deck-area{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:30px auto}
+    .tarot-card{width:clamp(105px,19vw,155px);height:250px;border:1px solid var(--gold);border-radius:9px;padding:8px;background:linear-gradient(145deg,#35234c,#151020);cursor:pointer;perspective:900px;position:relative;color:var(--gold);box-shadow:0 12px 28px rgba(0,0,0,.35);transition:transform .25s}
+    .tarot-card:hover{transform:translateY(-7px)}
+    .card-inner{height:100%;border:1px solid rgba(216,184,120,.5);border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:repeating-linear-gradient(45deg,transparent,transparent 8px,rgba(216,184,120,.035) 9px,transparent 10px)}
+    .card-back .ornament{font-size:3.5rem}
+    .tarot-card.revealed{background:linear-gradient(160deg,#f0dfbd,#c9b18b);color:#24172f}
+    .tarot-card.revealed .card-inner{border-color:rgba(36,23,47,.45);background:radial-gradient(circle,rgba(255,255,255,.45),transparent 65%)}
+    .tarot-card.reversed .card-inner{transform:rotate(180deg)}
+    .card-emoji{font-size:3rem;line-height:1.2}
+    .tarot-name{font-size:1.12rem;font-weight:700;text-align:center;line-height:1.05}
+    .card-position{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+    .results{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left;margin-top:25px}
+    .result{padding:18px;border:1px solid var(--line);border-radius:7px;background:rgba(255,255,255,.025)}
+    .result h3{font-size:1.35rem;color:var(--gold)}
+    .result .orientation{font-size:.75rem;color:var(--lilac);text-transform:uppercase;letter-spacing:.1em}
+    .result p{font-size:.9rem;margin-bottom:0}
+    #readingMessage{min-height:28px;color:var(--gold2);margin:15px 0}
+    .testimonials{background:var(--night2)}
+    .quote-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .quote{border-left:2px solid var(--gold);padding:18px 22px;background:rgba(255,255,255,.025)}
+    .quote p{font-family:"Cormorant Garamond",serif;font-size:1.3rem;color:#e7dfee}
+    .quote small{color:var(--gold)}
+    .contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:55px}
+    .contact-details{padding:25px;border:1px solid var(--line);border-radius:8px;background:var(--night2)}
+    .contact-details a{color:var(--gold)}
+    form{display:grid;gap:14px}
+    label{font-size:.85rem;color:#e5dced}
+    input,textarea,select{width:100%;padding:13px 14px;border:1px solid rgba(216,184,120,.3);border-radius:4px;background:#1a1326;color:var(--white);outline:none}
+    input:focus,textarea:focus,select:focus{border-color:var(--gold)}
+    textarea{min-height:130px;resize:vertical}
+    footer{padding:28px 0;border-top:1px solid var(--line);text-align:center;color:#9689a6;font-size:.85rem}
+    .whatsapp-float{position:fixed;right:20px;bottom:20px;z-index:8;border-radius:50px;padding:12px 17px;background:#267d58;color:white;box-shadow:var(--shadow);font-weight:700}
+    .fineprint{font-size:.78rem;color:#8f829f}
+    @media(max-width:800px){
+      .hero-grid,.about-grid,.contact-grid{grid-template-columns:1fr}
+      .hero{min-height:auto;padding:140px 0 70px}.hero-art{min-height:280px}
+      .moon{width:230px}.moon span{font-size:6.5rem}
+      .cards,.quote-grid{grid-template-columns:1fr 1fr}
+      .results{grid-template-columns:1fr}
+      .navlinks{display:none;position:absolute;top:78px;left:0;width:100%;padding:20px;background:#171025;flex-direction:column;gap:14px}
+      .navlinks.open{display:flex}.menu-btn{display:block}
+    }
+    @media(max-width:540px){
+      .container{width:min(100% - 28px,1120px)}
+      section{padding:72px 0}.cards,.quote-grid{grid-template-columns:1fr}
+      .reading-panel{padding:20px 12px}.tarot-card{height:205px}
+      .hero-copy p{font-size:1rem}
+      .whatsapp-float{right:12px;bottom:12px;font-size:.85rem}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="container">
+      <a class="brand" href="#inicio">Alex Roitmann</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Abrir menú" aria-expanded="false">☰</button>
+      <div class="navlinks" id="navlinks">
+        <a href="#sobre-mi">Sobre mí</a><a href="#servicios">Lecturas</a><a href="#tirada">Tirada gratis</a><a href="#contacto">Contacto</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">Tarot · Simbolismo · Autoconocimiento</div>
+          <h1>Escucha lo que<br><span style="color:var(--gold)">el universo</span><br>te invita a mirar.</h1>
+          <p>Una lectura de tarot es una pausa para observar tus preguntas desde otra perspectiva. Explora los símbolos, reconoce posibilidades y encuentra claridad para decidir tu propio camino.</p>
+          <a class="btn" href="#contacto">✧ Reservar una lectura</a>
+          <a class="btn ghost" href="#tirada" style="margin-left:8px">Probar tirada</a>
+        </div>
+        <div class="hero-art" aria-hidden="true"><div class="moon"><span>☾</span></div></div>
+      </div>
+    </section>
+
+    <section id="sobre-mi">
+      <div class="container about-grid">
+        <div class="sigil" aria-hidden="true">✧</div>
+        <div class="about-copy">
+          <div class="eyebrow">El tarot como espejo</div>
+          <h2>Sobre Alex</h2>
+          <p>Soy Alex Roitmann. Mi enfoque del tarot parte del respeto por tu historia y por tus decisiones. Cada carta ofrece un lenguaje de símbolos que puede ayudarte a explorar emociones, reconocer patrones y contemplar nuevas perspectivas.</p>
+          <p>Las lecturas son un espacio de escucha y reflexión: no sustituyen tu criterio ni prometen un futuro inamovible. El propósito es acompañarte a formular mejores preguntas y tomar decisiones con mayor conciencia.</p>
+          <a class="btn ghost" href="#contacto">Conversemos</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="services" id="servicios">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Encuentra tu lectura</div><h2>Servicios de tarot</h2><p>Elige la profundidad y el tema que mejor acompañen tu momento.</p></div>
+        <div class="cards">
+          <article class="service-card"><div class="symbol">☼</div><h3>Pasado · Presente · Futuro</h3><p>Tres cartas para observar antecedentes, energía actual y posibles caminos por explorar.</p><div class="price">$350 MXN</div><div class="meta">25 minutos · Lectura individual</div></article>
+          <article class="service-card"><div class="symbol">♡</div><h3>Lectura del Amor</h3><p>Una mirada simbólica a vínculos, necesidades afectivas, comunicación y posibilidades.</p><div class="price">$450 MXN</div><div class="meta">35 minutos · Lectura individual</div></article>
+          <article class="service-card"><div class="symbol">✧</div><h3>Cruz Céltica</h3><p>Una tirada amplia para explorar contexto, desafíos, influencias y alternativas ante una pregunta.</p><div class="price">$650 MXN</div><div class="meta">50 minutos · Lectura profunda</div></article>
+        </div>
+        <p class="fineprint" style="text-align:center;margin-top:20px">Precios de ejemplo editables: confirma tarifas, duración y modalidad antes de publicar.</p>
+      </div>
+    </section>
+
+    <section class="reading" id="tirada">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Tu momento de introspección</div><h2>Una tirada de tres cartas</h2><p>Concéntrate en una pregunta. Pulsa cada carta para descubrir tres arquetipos de los Arcanos Mayores. La selección es aleatoria y puede salir al derecho o invertida.</p></div>
+        <div class="reading-panel">
+          <div class="eyebrow">Pasado · Presente · Futuro</div>
+          <div class="deck-area" id="deckArea" aria-label="Tres cartas de tarot">
+            <button class="tarot-card" data-index="0" aria-label="Voltear carta del pasado"><span class="card-inner card-back"><span class="ornament">✧</span><span class="card-position">Pasado</span></span></button>
+            <button class="tarot-card" data-index="1" aria-label="Voltear carta del presente"><span class="card-inner card-back"><span class="ornament">☾</span><span class="card-position">Presente</span></span></button>
+            <button class="tarot-card" data-index="2" aria-label="Voltear carta del futuro"><span class="card-inner card-back"><span class="ornament">☼</span><span class="card-position">Futuro</span></span></button>
+          </div>
+          <div id="readingMessage" aria-live="polite">Elige las tres cartas para revelar tu tirada.</div>
+          <div class="results" id="results"></div>
+          <div style="margin-top:25px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            <button class="btn" id="resetBtn">↻ Reiniciar tirada</button>
+            <a class="btn ghost" href="#contacto">Profundizar en una consulta</a>
+          </div>
+          <p class="fineprint">Esta tirada es una experiencia simbólica y recreativa; no predice hechos ni reemplaza asesoramiento profesional.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="testimonials">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Experiencias</div><h2>Palabras de quienes consultan</h2><p>Este espacio está preparado para incorporar opiniones auténticas de clientes, siempre con su autorización.</p></div>
+        <div class="quote-grid">
+          <article class="quote"><p>“Tu experiencia puede ayudar a otras personas a saber qué esperar de una lectura.”</p><small>Espacio para testimonio real 01</small></article>
+          <article class="quote"><p>“Comparte aquí una opinión breve, respetando la privacidad de quien consulta.”</p><small>Espacio para testimonio real 02</small></article>
+          <article class="quote"><p>“Añade únicamente comentarios recibidos y autorizados por tus clientes.”</p><small>Espacio para testimonio real 03</small></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="container">
+        <div class="section-head"><div class="eyebrow">Da el siguiente paso</div><h2>Reserva tu lectura</h2><p>Cuéntame qué tema te gustaría explorar y coordinamos día, horario y modalidad.</p></div>
+        <div class="contact-grid">
+          <div class="contact-details">
+            <h3>Alex Roitmann</h3>
+            <p>Tarot y orientación simbólica</p>
+            <p>WhatsApp / Teléfono<br><a href="tel:+527778293694">+52 777 829 3694</a></p>
+            <p>Atención con cita previa.</p>
+            <a class="btn" href="https://wa.me/527778293694?text=Hola%20Alex%2C%20me%20gustar%C3%ADa%20reservar%20una%20lectura%20de%20tarot." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+          </div>
+          <form id="bookingForm">
+            <div><label for="name">Tu nombre</label><input id="name" name="name" required placeholder="¿Cómo te llamas?"></div>
+            <div><label for="phone">Tu teléfono (opcional)</label><input id="phone" name="phone" type="tel" placeholder="Tu número de contacto"></div>
+            <div><label for="service">Lectura que te interesa</label><select id="service" name="service"><option>Pasado, presente y futuro</option><option>Lectura del amor</option><option>Cruz Céltica</option><option>Quiero orientación para elegir</option></select></div>
+            <div><label for="message">¿Qué te gustaría consultar?</label><textarea id="message" name="message" placeholder="Escribe brevemente el tema de tu consulta..."></textarea></div>
+            <button class="btn" type="submit">Enviar solicitud por WhatsApp</button>
+            <p class="fineprint">Al enviar, se abrirá WhatsApp con tu mensaje preparado. No se almacenan datos en este sitio.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container">© <span id="year"></span> Alex Roitmann · Tarot para la reflexión y el autoconocimiento.</div></footer>
+  <a class="whatsapp-float" href="https://wa.me/527778293694" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">☏ WhatsApp</a>
+
+  <script>
+    const arcana = [
+      ["El Loco","🧳","Un comienzo, libertad y apertura a lo desconocido. Permítete explorar, sin confundir espontaneidad con imprudencia.","Puede haber impulso sin dirección o temor a dar el primer paso. Recupera la curiosidad y revisa qué riesgo sí estás dispuesto a asumir."],
+      ["El Mago","🪄","Tienes recursos, habilidades y capacidad de convertir una idea en acción. Elige una intención y da un primer paso concreto.","La energía puede dispersarse o quedarse en promesas. Ordena tus recursos y evita actuar desde la manipulación o la duda constante."],
+      ["La Sacerdotisa","🌙","Escucha tu intuición y observa lo que todavía no se ha dicho. La pausa y la contemplación pueden revelar más que la prisa.","Quizá estés ignorando tu voz interior o guardando demasiado. Busca equilibrio entre intuición, información y comunicación."],
+      ["La Emperatriz","🌿","Creatividad, cuidado y crecimiento. Nutre aquello que deseas ver florecer y date permiso para recibir.","El exceso de entrega puede dejarte sin energía. Atiende tus necesidades y evita intentar controlar el crecimiento de los demás."],
+      ["El Emperador","👑","Estructura, límites y responsabilidad. Construye una base firme con decisiones claras y consistentes.","La rigidez o la necesidad de control pueden cerrar posibilidades. Revisa tus reglas y permite cierta flexibilidad."],
+      ["El Hierofante","📜","Aprendizaje, tradición y valores compartidos. Una guía confiable o una práctica constante puede orientarte.","Cuestiona las normas que sigues por costumbre. Encuentra tu propia verdad sin rechazar automáticamente toda experiencia heredada."],
+      ["Los Enamorados","♡","Una elección alineada con tus valores y vínculos basados en honestidad. Mira qué decisión refleja mejor quién quieres ser.","Puede haber indecisión o desarmonía entre deseo y valores. Habla con claridad y evita elegir solo para complacer."],
+      ["El Carro","🏇","Dirección, determinación y avance. Reúne tus fuerzas y conduce tu energía hacia una meta definida.","La prisa o las fuerzas opuestas pueden agotarte. Recupera el rumbo antes de acelerar y distingue firmeza de imposición."],
+      ["La Fuerza","🦁","Valentía serena, paciencia y dominio compasivo de los impulsos. Tu fortaleza también puede expresarse con suavidad.","La inseguridad o la reacción impulsiva pueden tomar el mando. Trátate con paciencia y responde en lugar de reaccionar."],
+      ["El Ermitaño","🏮","Un tiempo de introspección puede ayudarte a encontrar respuestas propias. Reduce el ruido y escucha con atención.","El aislamiento puede volverse una barrera. Busca espacio personal sin cortar los puentes con quienes te apoyan."],
+      ["La Rueda de la Fortuna","☸️","Los ciclos cambian y una nueva etapa puede abrirse. Observa qué puedes aprender y qué oportunidad merece tu atención.","La resistencia al cambio puede aumentar la sensación de estancamiento. Acepta lo que no controlas y actúa sobre lo que sí."],
+      ["La Justicia","⚖️","Claridad, equilibrio y responsabilidad. Examina los hechos y procura que tus decisiones sean coherentes con tus principios.","Puede haber evasión, juicio severo o información incompleta. Revisa tu parte con honestidad y busca una perspectiva equilibrada."],
+      ["El Colgado","🪢","Una pausa voluntaria permite mirar la situación desde otro ángulo. No todo avance consiste en moverse más rápido.","La espera puede convertirse en inmovilidad o sacrificio innecesario. Identifica qué puedes soltar y qué acción pequeña sí depende de ti."],
+      ["La Muerte","🦋","Cierre y transformación. Dejar atrás una etapa puede crear espacio para una forma distinta de vivir y elegir.","Aferrarte a lo que terminó puede prolongar el desgaste. Reconoce el cambio pendiente y avanza sin forzar tus tiempos."],
+      ["La Templanza","🏺","Integración, moderación y paciencia. Combina tus recursos con calma y busca un ritmo sostenible.","Los extremos o la impaciencia pueden desequilibrarte. Vuelve a lo esencial y ajusta poco a poco tus hábitos."],
+      ["El Diablo","⛓️","Observa apegos, deseos y patrones que limitan tu libertad. Reconocerlos es el primer paso para elegir distinto.","Puede señalar negación de un patrón o sensación de estar atrapado. Nombra aquello que te condiciona y recupera margen de decisión."],
+      ["La Torre","⚡","Una estructura frágil puede requerir una revisión profunda. La verdad, aunque incómoda, permite reconstruir con bases más honestas.","El miedo al cambio puede intensificar la tensión. Atiende lo urgente, busca apoyo y reconstruye paso a paso."],
+      ["La Estrella","⭐","Esperanza, inspiración y renovación. Permítete recuperar confianza y conectar con lo que te da sentido.","El desánimo puede opacar tus recursos. Haz espacio para pequeñas señales de alivio y vuelve a cuidar tus aspiraciones."],
+      ["La Luna","🌕","Sensibilidad, sueños e incertidumbre. No necesitas resolverlo todo ahora: observa emociones y verifica lo que parece confuso.","El temor o las suposiciones pueden distorsionar la percepción. Distingue intuición de ansiedad y confirma la información antes de decidir."],
+      ["El Sol","☀️","Vitalidad, claridad y alegría compartida. Reconoce tus avances y permite que lo que has cultivado salga a la luz.","Puede haber exceso de confianza o dificultad para reconocer lo positivo. Recupera sencillez y celebra sin ignorar los detalles."],
+      ["El Juicio","📯","Despertar, revisión y una llamada a actuar con mayor conciencia. Aprende del pasado sin quedarte viviendo en él.","La autocrítica o el miedo a ser juzgado pueden frenarte. Escucha lo aprendido y date permiso para responder de otra manera."],
+      ["El Mundo","🌍","Integración y culminación. Reconoce el camino recorrido y prepárate para abrir un nuevo ciclo con lo aprendido.","Quizá falte cerrar un asunto o reconocer tu propio logro. Completa lo pendiente antes de exigirte una nueva meta."]
+    ];
+    const positions = ["Pasado","Presente","Futuro"];
+    let chosen = [];
+    let revealed = [false,false,false];
+    const cards = [...document.querySelectorAll(".tarot-card")];
+    const results = document.getElementById("results");
+    const message = document.getElementById("readingMessage");
+
+    function draw() {
+      const pool = [...arcana.keys()];
+      chosen = [];
+      for(let i=0;i<3;i++){
+        const pick = Math.floor(Math.random()*pool.length);
+        const index = pool.splice(pick,1)[0];
+        chosen.push({index,reversed:Math.random()<0.32});
+      }
+      revealed = [false,false,false];
+      results.innerHTML = "";
+      cards.forEach((card,i)=>{
+        card.className = "tarot-card";
+        card.innerHTML = `<span class="card-inner card-back"><span class="ornament">${["✧","☾","☼"][i]}</span><span class="card-position">${positions[i]}</span></span>`;
+        card.disabled = false;
+        card.setAttribute("aria-label",`Voltear carta de ${positions[i].toLowerCase()}`);
+      });
+      message.textContent = "Tu tirada está preparada. Pulsa cada carta para revelarla.";
+    }
+    function reveal(i) {
+      if(revealed[i]) return;
+      revealed[i]=true;
+      const pick=chosen[i], item=arcana[pick.index], card=cards[i];
+      card.classList.add("revealed");
+      if(pick.reversed) card.classList.add("reversed");
+      card.innerHTML = `<span class="card-inner"><span class="card-position">${positions[i]}</span><span class="card-emoji">${item[1]}</span><span class="tarot-name">${item[0]}</span><span class="card-position">${pick.reversed?"Invertida":"Al derecho"}</span></span>`;
+      card.disabled=true;
+      const interpretation=pick.reversed?item[3]:item[2];
+      const article=document.createElement("article");
+      article.className="result";
+      article.innerHTML=`<div class="orientation">${positions[i]} · ${pick.reversed?"Invertida":"Al derecho"}</div><h3>${item[0]}</h3><p>${interpretation}</p>`;
+      results.appendChild(article);
+      const count=revealed.filter(Boolean).length;
+      message.textContent=count===3?"Tu tirada está completa. Tómate un momento para integrar los tres mensajes.":`Has revelado ${count} de 3 cartas.`;
+    }
+    cards.forEach(card=>card.addEventListener("click",()=>reveal(Number(card.dataset.index))));
+    document.getElementById("resetBtn").addEventListener("click",draw);
+    document.getElementById("year").textContent=new Date().getFullYear();
+    document.getElementById("menuBtn").addEventListener("click",()=>{
+      const links=document.getElementById("navlinks");
+      const open=links.classList.toggle("open");
+      document.getElementById("menuBtn").setAttribute("aria-expanded",String(open));
+    });
+    document.querySelectorAll(".navlinks a").forEach(a=>a.addEventListener("click",()=>{
+      document.getElementById("navlinks").classList.remove("open");
+      document.getElementById("menuBtn").setAttribute("aria-expanded","false");
+    }));
+    document.getElementById("bookingForm").addEventListener("submit",e=>{
+      e.preventDefault();
+      const name=document.getElementById("name").value.trim();
+      const phone=document.getElementById("phone").value.trim();
+      const service=document.getElementById("service").value;
+      const detail=document.getElementById("message").value.trim();
+      const text=`Hola Alex, soy ${name}. Me interesa: ${service}.${phone?` Mi teléfono es ${phone}.`:""}${detail?` Mi consulta: ${detail}`:""} Me gustaría conocer disponibilidad para una lectura.`;
+      window.open(`https://wa.me/527778293694?text=${encodeURIComponent(text)}`,"_blank","noopener");
+    });
+    draw();
+  </script>
+</body>
+</html>
